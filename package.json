@@ -1,6 +1,6 @@
 {
   "name": "paperlib-ccf-rank-scrape-extension",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "AlphaGogoo",
   "description": "paperlib extension for get CCF rank of paper.",
   "main": "dist/main.js",

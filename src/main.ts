@@ -43,7 +43,9 @@ class PaperlibCCFRankScrapeExtension extends PLExtension {
     // let max_similarity_index = 0;
 
     let longestCommonStringLength = 0
+    let longestCommonStringLengthIndexes:number[] = []
     let longestCommonStringLengthIndex = 0
+
     for (let i = 0; i < ccf_rank.length; i++) {
       //1. 第一种方式
       //使用正则提取publication 小括号中的内容
@@ -73,18 +75,34 @@ class PaperlibCCFRankScrapeExtension extends PLExtension {
 
 
       //第4种方式，计算最长公共子串
-      let commonSubstringLength = longestCommonSubstringLength(paperPublication, ccf_rank[i].full_name)
-      longestCommonStringLength = Math.max(longestCommonStringLength, commonSubstringLength)
-      if (longestCommonStringLength === commonSubstringLength){
-        longestCommonStringLengthIndex = i
+      let processed_paperPublication = paperPublication.replaceAll("Proceedings of the","").replaceAll("International Conference", "")
+      let processedCCFRankFullName = ccf_rank[i].full_name.replaceAll("Proceedings of the","").replaceAll("International Conference", "")
+
+
+      let commonSubstringLength = longestCommonSubstringLength(processed_paperPublication,processedCCFRankFullName)
+      if (commonSubstringLength > longestCommonStringLength){
+        longestCommonStringLength = commonSubstringLength
+        longestCommonStringLengthIndexes = []
+        longestCommonStringLengthIndexes.push(i)
+      }else if(commonSubstringLength === longestCommonStringLength){
+        longestCommonStringLength = commonSubstringLength
+        longestCommonStringLengthIndexes.push(i)
+      }else{
+
       }
     }
-    // if (max_similarity > 0.9) {
-    //   rank = ccf_rank[max_similarity_index].CCF_Rank;
-    // }
-
-    if (longestCommonStringLength > ccf_rank[longestCommonStringLengthIndex].full_name.length * 0.5){
-      rank = ccf_rank[longestCommonStringLengthIndex].CCF_Rank
+    //计算字符串覆盖率，防止出现两个刊物的名字，其中一个是另一个的子串的情况
+    let max_coverage_rate = 0
+    let max_coverage_rate_index = 0
+    for (let i = 0; i < longestCommonStringLengthIndexes.length; i++){
+      let coverage_rate = longestCommonStringLength / ccf_rank[longestCommonStringLengthIndexes[i]].full_name.replaceAll("Proceedings of the","").replaceAll("International Conference", "").length
+      if (coverage_rate > max_coverage_rate){
+        max_coverage_rate = coverage_rate
+        max_coverage_rate_index = longestCommonStringLengthIndexes[i]
+      }
+    }
+    if (max_coverage_rate > 0.7){
+      rank = ccf_rank[max_coverage_rate_index].CCF_Rank
     }
     //将rank显示在ui插槽里
     await PLAPI.uiSlotService.updateSlot(
