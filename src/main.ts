@@ -104,13 +104,24 @@ class PaperlibCCFRankScrapeExtension extends PLExtension {
     if (max_coverage_rate > 0.7){
       rank = ccf_rank[max_coverage_rate_index].CCF_Rank
     }
-    //将rank显示在ui插槽里
+
+    let rank_html = ""
+    if (rank === "CCF-A"){
+      rank_html = `<text style="padding: 2px 4px;border-radius: 10px; background-color: orangered">${rank}</text>`
+    }else if(rank === "CCF-B"){
+      rank_html = `<text style="padding: 2px 4px;border-radius: 10px; background-color: yellow">${rank}</text>`
+    }else if(rank === "CCF-C"){
+      rank_html = `<text style="padding: 2px 4px;border-radius: 10px; background-color: limegreen">${rank}</text>`
+    }else{
+      rank_html = `<text style="padding: 2px 4px;border-radius: 10px; background-color: lightgrey">${rank}</text>`
+    }
+    //将rank显示在ui插槽里,使用html
     await PLAPI.uiSlotService.updateSlot(
       "paperDetailsPanelSlot1",
       {
         "paperlib-ccf-rank-scrape": {
           title: "CCF Rank",
-          content: rank
+          content: rank_html
         }
       }
     );
