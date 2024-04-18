@@ -55,12 +55,14 @@ class PaperlibCCFRankScrapeExtension extends PLExtension {
       let short_publication = paperPublication.match(reg) ? paperPublication.match(reg)[0] : "";
       if (short_publication !== "" && short_publication === ccf_rank[i].short_name){
         rank = ccf_rank[i].CCF_Rank;
+        longestCommonStringLengthIndexes = []
         break;
       }
 
       //2. 第二种方式
       if (ccf_rank[i].short_name !== "" && paperPublication === ccf_rank[i].short_name) {
         rank = ccf_rank[i].CCF_Rank;
+        longestCommonStringLengthIndexes = []
         break;
       }
 
@@ -91,6 +93,8 @@ class PaperlibCCFRankScrapeExtension extends PLExtension {
 
       }
     }
+
+
     //计算字符串覆盖率，防止出现两个刊物的名字，其中一个是另一个的子串的情况
     let max_coverage_rate = 0
     let max_coverage_rate_index = 0
