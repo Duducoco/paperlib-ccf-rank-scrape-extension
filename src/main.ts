@@ -111,13 +111,13 @@ class PaperlibCCFRankScrapeExtension extends PLExtension {
 
     let rank_html = ""
     if (rank === "CCF-A"){
-      rank_html = `<text style="padding: 2px 4px;border-radius: 10px; background-color: orangered">${rank}</text>`
+      rank_html = `<text style="padding: 2px 4px;border-radius: 10px; background-color: orangered; color:white"><b>${rank}</b></text>`
     }else if(rank === "CCF-B"){
-      rank_html = `<text style="padding: 2px 4px;border-radius: 10px; background-color: yellow">${rank}</text>`
+      rank_html = `<text style="padding: 2px 4px;border-radius: 10px; background-color: Orange; color:white"><b>${rank}</b></text>`
     }else if(rank === "CCF-C"){
-      rank_html = `<text style="padding: 2px 4px;border-radius: 10px; background-color: limegreen">${rank}</text>`
+      rank_html = `<text style="padding: 2px 4px;border-radius: 10px; background-color: limegreen; color:white"><b>${rank}</b></text>`
     }else{
-      rank_html = `<text style="padding: 2px 4px;border-radius: 10px; background-color: lightgrey">${rank}</text>`
+      rank_html = `<text style="padding: 2px 4px;border-radius: 10px; background-color: lightgrey; color:white"><b>${rank}</b></text>`
     }
     //将rank显示在ui插槽里,使用html
     await PLAPI.uiSlotService.updateSlot(
