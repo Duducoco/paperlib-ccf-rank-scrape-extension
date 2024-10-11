@@ -1,3 +1,4 @@
+//这个函数计算最长公共字符串的长度，比如helloworld与hello,how are you. 公共字符串是hello，长度就是5
 function longestCommonSubstringLength(str1: string, str2: string): number {
   let result = 0
   // 创建一个二维数组来存储最长公共子串的长度
