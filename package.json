@@ -1,6 +1,6 @@
 {
   "name": "paperlib-ccf-rank-scrape-extension",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "author": "Duducoco",
   "homepage": "https://github.com/Duducoco/paperlib-ccf-rank-scrape-extension",
   "description": "paperlib extension for get CCF rank of paper.",
@@ -8,6 +8,7 @@
   "type": "commonjs",
   "manifest_version": "0.1.7",
   "scripts": {
+    "update:ccf-rank": "node scripts/update-ccf-rank.mjs",
     "prebuild": "tsc --noEmit",
     "build": "tsc --noEmit && vite build"
   },

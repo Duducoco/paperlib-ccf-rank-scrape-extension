@@ -15,10 +15,6 @@
     "noImplicitAny": false,
     "sourceMap": true,
     "strict": true,
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["src/*"]
-    },
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "types": ["node"]
